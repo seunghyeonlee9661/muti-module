@@ -27,8 +27,6 @@ services:
     container_name: module-A
     ports:
       - "8081:8080"
-    env_file:
-      - .env
     depends_on:
       - mysql
       - redis
@@ -40,8 +38,6 @@ services:
     container_name: module-B
     ports:
       - "8082:8080"
-    env_file:
-      - .env
     depends_on:
       - mysql
       - redis

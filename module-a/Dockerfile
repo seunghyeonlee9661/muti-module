@@ -12,8 +12,8 @@ COPY build.gradle /app/
 COPY module-common/build.gradle /app/module-common/
 COPY module-common/src /app/module-common/src
 
-COPY module-A/build.gradle /app/module/
-COPY module-A/src /app/module/src
+COPY module-a/build.gradle /app/module-a/
+COPY module-a/src /app/module-a/src
 
 #Copy settings.gradle for module
 COPY module/settings.gradle /app/
@@ -25,7 +25,7 @@ RUN chmod +x gradlew
 RUN ./gradlew build -x test --stacktrace
 
 # Copy the built JAR file to /app.jar
-RUN cp module-A/build/libs/module-A.jar /app.jar
+RUN cp module-a/build/libs/module-a.jar /app.jar
 
 # Expose port
 EXPOSE 8080

@@ -32,14 +32,14 @@ jobs:
           changed_modules=$(git diff --name-only HEAD^ HEAD)
 
           # Build only if specific directories have changed
-          if echo "$changed_modules" | grep -q '^module-A/'; then
-            echo "Changes detected in module-A"
-            docker-compose build module-A
+          if echo "$changed_modules" | grep -q '^module-a/'; then
+            echo "Changes detected in module-a"
+            docker-compose build module-a
           fi
 
-          if echo "$changed_modules" | grep -q '^module-B/'; then
-            echo "Changes detected in module-B"
-            docker-compose build module-B
+          if echo "$changed_modules" | grep -q '^module-b/'; then
+            echo "Changes detected in module-b"
+            docker-compose build module-b
           fi
           
           docker-compose up -d

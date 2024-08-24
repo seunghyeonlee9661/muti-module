@@ -7,5 +7,5 @@ springBoot{
 }
 
 bootJar {
-    archiveFileName = 'module-A.jar'
+    archiveFileName = 'module-a.jar'
 }

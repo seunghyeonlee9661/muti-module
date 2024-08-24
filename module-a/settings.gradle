@@ -1,4 +1,4 @@
 rootProject.name = 'muti-module'
 include 'module-common'
-include 'module-B'
+include 'module-a'
 

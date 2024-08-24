@@ -16,7 +16,7 @@ COPY module-a/build.gradle /app/module-a/
 COPY module-a/src /app/module-a/src
 
 #Copy settings.gradle for module
-COPY module/settings.gradle /app/
+COPY module-a/settings.gradle /app/
 
 # Ensure gradlew is executable
 RUN chmod +x gradlew

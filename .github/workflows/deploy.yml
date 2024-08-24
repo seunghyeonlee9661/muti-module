@@ -1,0 +1,46 @@
+name: Deploy to Ubuntu Server
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2  # 변경 감지를 위한 이전 파일 확인
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Copy files via SSH
+        run: |
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.HOST }}:/home/leesh/spring/Multi-module
+
+      - name: Deploy with Docker Compose
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} << 'EOF'
+          cd /home/leesh/spring/Multi-module
+          
+          # Detect which modules changed
+          changed_modules=$(git diff --name-only HEAD^ HEAD)
+
+          # Build only if specific directories have changed
+          if echo "$changed_modules" | grep -q '^module-A/'; then
+            echo "Changes detected in module-A"
+            docker-compose build module-A
+          fi
+
+          if echo "$changed_modules" | grep -q '^module-B/'; then
+            echo "Changes detected in module-B"
+            docker-compose build module-B
+          fi
+          
+          docker-compose up -d
+          EOF

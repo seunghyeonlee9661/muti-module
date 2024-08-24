@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  module-A:
+    build:
+      context: ./  # Root context for the build
+      dockerfile: module-A/Dockerfile
+    container_name: module-A
+    ports:
+      - "8081:8080"
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+      - redis
+
+  module-B:
+    build:
+      context: ./  # Root context for the build
+      dockerfile: module-B/Dockerfile
+    container_name: module-B
+    ports:
+      - "8082:8080"
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+      - redis
+
+volumes:
+  mysql_data:

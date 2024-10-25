@@ -1,4 +1,5 @@
 # 🌟 Multi-Module Spring Project with Docker Compose & GitHub Actions
+![image](https://github.com/user-attachments/assets/b589649f-6eaf-4350-8a9b-a568d0eb40b3)
 
 Welcome to the **Multi-Module Spring Project** repository! This project demonstrates how to set up a multi-module Spring Boot application using **Docker Compose** for containerization and **GitHub Actions** for continuous deployment.
 
